@@ -1,19 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import GuessControl from './GuessControl';
 import GuessMessage from './GuessMessage';
 import GameOver from './GameOver';
 
-/**
- *
- * Returns a random integer number from 1-100 inclusive
- */
+const MAX_NUMBER = 100;
+const MIN_NUMBER = 1;
 function getRandomNumber() {
-	return Math.floor(Math.random() * 100) + 1;
+	return Math.floor(Math.random() * MAX_NUMBER) + MIN_NUMBER;
 }
 
 const MAX_ATTEMPTS = 5;
 
-function NumberGuessingGame(props) {
+function NumberGuessingGame() {
 	const [numberToGuess, setNumberToGuess] = useState(getRandomNumber());
 	const [numberOfGuesses, setNumberOfGuesses] = useState(0);
 	const [latestGuess, setLatestGuess] = useState(null);
@@ -34,11 +32,13 @@ function NumberGuessingGame(props) {
 
 	return (
 		<div>
-			<h2>I'm thinking of a number from 1 to 100.</h2>
+			<h2>
+				I'm thinking of a number from {MIN_NUMBER} to {MAX_NUMBER}.
+			</h2>
 			<h2>
 				Can you guess the number I am thinking of in {MAX_ATTEMPTS} tries?
 			</h2>
-			<GuessControl onGuess={handleGuess} />
+			{!isGameOver && <GuessControl onGuess={handleGuess} />}
 			{isGameOver && (
 				<GameOver
 					hasWon={isCorrectGuess}
