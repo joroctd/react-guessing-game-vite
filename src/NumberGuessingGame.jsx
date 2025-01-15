@@ -30,7 +30,7 @@ function NumberGuessingGame() {
 	};
 
 	const isCorrectGuess = latestGuess === numberToGuess;
-	const isGameOver = isCorrectGuess || numberOfGuesses === MAX_ATTEMPTS;
+	const isGameOver = isCorrectGuess || numberOfGuesses >= MAX_ATTEMPTS;
 
 	return (
 		<div>
